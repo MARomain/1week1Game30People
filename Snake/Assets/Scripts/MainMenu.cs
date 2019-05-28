@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        audioSource.PlayOneShot(music, 1f);
+        //audioSource.PlayOneShot(music, 1f);
 
         if (EventSystem.currentSelectedGameObject == null)
         {
@@ -25,13 +25,13 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        audioSource.PlayOneShot(soundSelection, 1f);
+        //audioSource.PlayOneShot(soundSelection, 1f);
         SceneManager.LoadScene("Scene_Vincent"); //***** A changer *****//
     }
 
     public void QuitGame()
     {
-        audioSource.PlayOneShot(soundSelection, 1f);
+        //audioSource.PlayOneShot(soundSelection, 1f);
         Application.Quit();
     }
 }

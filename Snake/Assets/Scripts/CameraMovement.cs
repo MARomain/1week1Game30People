@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Transform target; //Position de la cible
-
     public float cameraSpeed = 25f;
 
     public float timerNextMoveIni; //Le temps qu'il faut à la caméra avant le prochain déplacement
@@ -16,21 +14,28 @@ public class CameraMovement : MonoBehaviour
 
     private bool needATarget = false;
 
-    public GameObject[] wayPoint;
+    public Transform[] wayPoints;
+    public Transform currentWayPoint;
+    public Transform verylastpoint;
+
+
     public int index;
     public int lastPointReached;
+    
 
     public GameObject test;
 
 
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        wayPoint = GameObject.FindGameObjectsWithTag("Waypoint");
+        int random = Random.Range(0, 9);
+        currentWayPoint = wayPoints[random];
         timerNextMoveIni = Random.Range(timerMinValue, timerMaxValue); //Pour équilibrage GD
         timerNextMove = timerNextMoveIni;
+        transform.position = currentWayPoint.transform.position;
+
+        GetNextWaypoint();
     }
 
 
@@ -58,12 +63,14 @@ public class CameraMovement : MonoBehaviour
 
     public void GetNextWaypoint()
     {
-        index = Random.Range(0, wayPoint.Length);
-        if (index != lastPointReached)
+        index = Random.Range(0, currentWayPoint.GetComponent<Waypoint>().waypointsVoisins.Length);
+ 
+        Debug.Log(index);
+        if (currentWayPoint != currentWayPoint.GetComponent<Waypoint>().waypointsVoisins[index]  && currentWayPoint.GetComponent<Waypoint>().waypointsVoisins[index] != verylastpoint)
         {
-            lastPointReached = index;
-            target = wayPoint[index].transform;
-            Debug.Log("Next point is " + target.name);
+            verylastpoint = currentWayPoint;
+            //currentWayPoint = currentWayPoint.waypointsVoisins[index];
+            currentWayPoint = currentWayPoint.GetComponent<Waypoint>().waypointsVoisins[index];
             needATarget = true;
         }
         else
@@ -75,15 +82,13 @@ public class CameraMovement : MonoBehaviour
 
     public void GoToNextPoint()
     {
-        Debug.Log("Going to " + target.name);
-        Vector3 dir = Vector3.Slerp(test.transform.position, target.position - test.transform.position, 5); 
-        test.transform.Translate(dir.normalized * cameraSpeed * Time.deltaTime, Space.World); 
+        Vector2 dir = Vector2.Lerp(transform.position, currentWayPoint.transform.position - transform.position, 5); 
+        transform.Translate(dir.normalized * cameraSpeed * Time.deltaTime, Space.World); 
 
-        if (Vector3.Distance(test.transform.position, target.position) <= 0.4f) //Valeur moyenne car déplacements imprécis.
+        if (Vector2.Distance(transform.position, currentWayPoint.transform.position) <= 0.05f) //Valeur moyenne car déplacements imprécis.
         {
             timerNextMove = timerNextMoveIni;
             needATarget = false;
-            Debug.Log("Point Reached !");
         }
     }
 
