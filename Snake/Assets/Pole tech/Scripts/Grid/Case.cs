@@ -9,7 +9,7 @@ public class Case : MonoBehaviour
     [Space(10)]
 
     Transform t;
-    SpriteRenderer sr;
+    Animator a;
 
     [Space(10)]
     [Header("Case Settings : ")]
@@ -19,57 +19,52 @@ public class Case : MonoBehaviour
     [HideInInspector] public enum CaseType { Rien, Obstacle, TerrainNavigable, Gélule, Snake, SnakeHead };
     public CaseType caseType;
 
-    public SpriteColor[] spriteAndColors;
+    public AnimName caseAnim;
 
-    private void OnValidate()
-    {
-        ChangerCaseConfiguration();
-    }
+    //private void OnValidate()
+    //{
+    //    if (!GetComponent<Animator>())
+    //    {
+    //        gameObject.AddComponent<Animator>();
+    //    }
+
+    //    ChangerCaseConfiguration();
+    //}
 
 
     public void ChangerCaseConfiguration()
     {
-        if (!sr)
+
+        if (!a)
         {
-            sr = GetComponent<SpriteRenderer>();
+            a = GetComponent<Animator>();
         }
 
         switch (caseType)
         {
             case CaseType.Rien:
-                sr.sprite = spriteAndColors[0].sprite;
-                sr.color = new Color(0f, 0f, 0f, 0f);
+                caseAnim = Grid.instance.animationToPlay[0];
                 break;
 
             case CaseType.Obstacle:
-                sr.sprite = spriteAndColors[0].sprite;
-                sr.color = spriteAndColors[0].col;
+                caseAnim = Grid.instance.animationToPlay[1];
                 break;
 
             case CaseType.TerrainNavigable:
-                sr.sprite = spriteAndColors[1].sprite;
-                sr.color = spriteAndColors[1].col;
+                caseAnim = Grid.instance.animationToPlay[0];
                 break;
 
             case CaseType.Gélule:
-                sr.sprite = spriteAndColors[2].sprite;
-                sr.color = spriteAndColors[2].col;
+                caseAnim = Grid.instance.animationToPlay[2];
+
                 break;
 
             case CaseType.Snake:
-
-                SpriteColor sc = SnakeManager.instance.GetSnakeConfiguration(this);
-
-                sr.sprite = sc.sprite;
-                sr.color = sc.col;
+                caseAnim = SnakeManager.instance.GetSnakeConfiguration(this);
                 break;
 
             case CaseType.SnakeHead:
-
-                SpriteColor scHead = SnakeManager.instance.GetSnakeConfiguration(this);
-
-                sr.sprite = scHead.sprite;
-                sr.color = scHead.col;
+                caseAnim = SnakeManager.instance.GetSnakeConfiguration(this);
                 break;
 
 
@@ -77,8 +72,12 @@ public class Case : MonoBehaviour
                 Debug.Log($"La fonction {caseType} n'a pas encore été implémentée");
                 break;
         }
+
+        if(!a)
+        a.Play(caseAnim.animName);
+
     }
 
 
-    
+
 }

@@ -8,7 +8,7 @@ public class SnakeManager : MonoBehaviour
 
 
     public Snake snakeJ1, snakeJ2;
-    public Configuration[] configurationsJ1, configurationsJ2;
+    public AnimName[] animationsJ1, animationsJ2;
 
 
 
@@ -35,12 +35,11 @@ public class SnakeManager : MonoBehaviour
 
 
 
-    public SpriteColor GetSnakeConfiguration(Case @case)
+    public AnimName GetSnakeConfiguration(Case @case)
     {
         bool caseHasBeenFound = false;
-        bool conditionsHaveBeenMet = false;
         Snake joueur = null;
-        Configuration configDeLaCase = null;
+        Direction orientationDeLaCase = null;
 
         while (!caseHasBeenFound)
         {
@@ -49,7 +48,7 @@ public class SnakeManager : MonoBehaviour
                 if (snakeJ1.body.Contains(@case))
                 {
                     caseHasBeenFound = true;
-                    configDeLaCase = snakeJ1.bodyConfigurations[i];
+                    orientationDeLaCase = snakeJ1.bodyDirections[i];
                     joueur = snakeJ1;
                     break;
                 }
@@ -57,7 +56,7 @@ public class SnakeManager : MonoBehaviour
                 if (snakeJ2.body.Contains(@case))
                 {
                     caseHasBeenFound = true;
-                    configDeLaCase = snakeJ2.bodyConfigurations[i];
+                    orientationDeLaCase = snakeJ2.bodyDirections[i];
                     joueur = snakeJ2;
                     break;
                 }
@@ -66,21 +65,27 @@ public class SnakeManager : MonoBehaviour
 
         if (caseHasBeenFound)
         {
-            Configuration[] configTuUse = (joueur.id == snakeJ1.id) ? configurationsJ1 : configurationsJ2;
+            List<Direction> configsJoueur = joueur.bodyDirections;
+            AnimName[] animsToUse = joueur.id == snakeJ1.id ? animationsJ1 : animationsJ2;
 
-            while (!conditionsHaveBeenMet)
+
+            for (int i = 0; i < configsJoueur.Count; i++)
             {
-                for (int i = 0; i < configTuUse.Length; i++)
+                switch (configsJoueur[i].conditions)
                 {
-                    if (configDeLaCase.conditions == configTuUse[i].conditions)
-                    {
-                        conditionsHaveBeenMet = true;
-                        return configTuUse[i].spriteAndColorToApply;
-                    }
-
-
+                    case Direction.Condition.Up:
+                        return animsToUse[0];
+                    case Direction.Condition.Down:
+                        return animsToUse[1];
+                    case Direction.Condition.Left:
+                        return animsToUse[2];
+                    case Direction.Condition.Right:
+                        return animsToUse[3];
                 }
+
+
             }
+            
         }
 
         Debug.LogError("Erreur : La configuration n'a pas été trouvée.");

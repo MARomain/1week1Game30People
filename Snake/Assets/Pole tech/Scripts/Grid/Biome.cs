@@ -8,17 +8,15 @@ public class Biome : MonoBehaviour
     [Header("Scripts & Components : ")]
     [Space(10)]
     
-    public SpriteColor[] biomeSpriteAndColors;   //Le changement de sprite et de couleur pour chaque biome
     public Case[] biomeCases;   //Les cases qui seront comprises dans ce biome
 
-    private void OnValidate()
-    {
-        for (int i = 0; i < biomeCases.Length; i++)
-        {
-            biomeCases[i].spriteAndColors = biomeSpriteAndColors;
-            biomeCases[i].ChangerCaseConfiguration();
-        }
-    }
+    //private void OnValidate()
+    //{
+    //    for (int i = 0; i < biomeCases.Length; i++)
+    //    {
+    //        biomeCases[i].ChangerCaseConfiguration();
+    //    }
+    //}
 
 
 

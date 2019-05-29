@@ -17,7 +17,7 @@ public class Snake : MonoBehaviour
     
     public int id, startSize;
     public List<Case> body;
-    public List<Configuration> bodyConfigurations;
+    public List<Direction> bodyDirections;
 
 
 

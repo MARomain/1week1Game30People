@@ -10,9 +10,14 @@ public class SpriteColor
 }
 
 [System.Serializable]
-public class Configuration
+public class AnimName
 {
-    public SpriteColor spriteAndColorToApply;
-    public enum Conditions { Up, Down, Left, Right}
-    public Conditions[] conditions;
+    public string animName;
+}
+
+[System.Serializable]
+public class Direction
+{
+    public enum Condition { Up, Down, Left, Right }
+    public Condition conditions;
 }
