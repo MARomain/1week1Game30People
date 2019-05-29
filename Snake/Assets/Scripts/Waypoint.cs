@@ -7,6 +7,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     public Transform[] waypointsVoisins;
+    public Biome biome;
     
 
 }

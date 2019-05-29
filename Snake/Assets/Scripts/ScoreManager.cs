@@ -17,49 +17,47 @@ public class ScoreManager : MonoBehaviour
     public Text victoryText;
 
 
-    // Start is called before the first frame update
-    void Start()
+    public bool partieGagnée = false;
+
+    public static ScoreManager instance;
+
+    private void Awake()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        scoreTextJ1.text = ("ScoreJ1 " + scoreJ1);
-        scoreTextJ2.text = ("ScoreJ2 " + scoreJ2);
-
-        if (Input.GetButtonDown("Fire1"))
+        if (instance)
         {
-            CollectBonusJ1();
-            WinGame();
+            Destroy(this);
+            return;
         }
 
-        if (Input.GetButtonDown("Fire2"))
-        {
-            CollectBonusJ2();
-            WinGame();
-        }
+        instance = this;
     }
-
+    
     public void KillPlayer()
     {
         
     }
 
-    public void CollectBonusJ1()
+    public void AddPoint(int id)
     {
-        Debug.Log("Score added");
-        scoreJ1++;
+
+        if (id == 1)
+        {
+            Debug.Log("Score 1 added");
+            scoreJ1++;
+        }
+        else
+        {
+            Debug.Log("Score 2 added");
+            scoreJ2++;
+        }
+
+        scoreTextJ1.text = ("ScoreJ1 " + scoreJ1);
+        scoreTextJ2.text = ("ScoreJ2 " + scoreJ2);
+
+        CheckWinCondition();
     }
 
-    public void CollectBonusJ2()
-    {
-        Debug.Log("Score added");
-        scoreJ2++;
-    }
-
-    public void WinGame()
+    public void CheckWinCondition()
     {
         if (scoreJ1 >= valueToWin)
         {
