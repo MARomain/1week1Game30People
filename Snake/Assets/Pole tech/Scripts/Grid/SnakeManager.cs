@@ -8,12 +8,15 @@ public class SnakeManager : MonoBehaviour
 
 
     public Snake snakeJ1, snakeJ2;
+    public Case caseStartJ1, caseStartJ2;
     public AnimName[] animationsJ1, animationsJ2;
 
 
 
     public static SnakeManager instance;
-    private void Awake()
+
+
+    private void Start()
     {
         if(instance != null)
         {
@@ -25,13 +28,26 @@ public class SnakeManager : MonoBehaviour
 
         snakeJ1 = GameObject.Find("Snake J1").GetComponent<Snake>();
         snakeJ2 = GameObject.Find("Snake J2").GetComponent<Snake>();
-    }
+
+        CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
+
+        caseStartJ1 = cameraMovement.currentBiome.caseStartJ1;
+        caseStartJ2 = cameraMovement.currentBiome.caseStartJ2;
 
 
-    private void Start()
-    {
-        
+        snakeJ1.body.Add(caseStartJ1);
+        snakeJ1.bodyDirections.Add(Direction.Condition.Up);
+
+        snakeJ1.body.Add(caseStartJ2);
+        snakeJ1.bodyDirections.Add(Direction.Condition.Up);
+
+        snakeJ1.SetupSnake();
+        snakeJ2.SetupSnake();
+
+
     }
+
+    
 
 
 
@@ -39,7 +55,7 @@ public class SnakeManager : MonoBehaviour
     {
         bool caseHasBeenFound = false;
         Snake joueur = null;
-        Direction orientationDeLaCase = null;
+        Direction.Condition orientationDeLaCase;
 
         while (!caseHasBeenFound)
         {
@@ -65,13 +81,13 @@ public class SnakeManager : MonoBehaviour
 
         if (caseHasBeenFound)
         {
-            List<Direction> configsJoueur = joueur.bodyDirections;
+            List<Direction.Condition> configsJoueur = joueur.bodyDirections;
             AnimName[] animsToUse = joueur.id == snakeJ1.id ? animationsJ1 : animationsJ2;
 
 
             for (int i = 0; i < configsJoueur.Count; i++)
             {
-                switch (configsJoueur[i].conditions)
+                switch (configsJoueur[i])
                 {
                     case Direction.Condition.Up:
                         return animsToUse[0];

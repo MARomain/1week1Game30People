@@ -6,6 +6,7 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public Vector2Int gridSize;
+    public int nbObjetsRamassablesParBiome;
     public AnimName[] animationToPlay;
 
     [Space(20)]
