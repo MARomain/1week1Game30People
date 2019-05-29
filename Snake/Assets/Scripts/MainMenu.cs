@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
-    public AudioClip soundSelection;
-    public AudioClip music;
     private AudioSource audioSource;
-    public GameObject FirstSelectedObject;
-    public EventSystem EventSystem;
+    public GameObject firstSelectedObject;
+    public EventSystem eventSystem;
 
     public GameObject pressStartBtn;
+    public GameObject panel1Player;
+    public GameObject panel2Players;
+
 
 
 
@@ -20,9 +21,9 @@ public class MainMenu : MonoBehaviour
     {
         //audioSource.PlayOneShot(music, 1f);
 
-        if (EventSystem.currentSelectedGameObject == null)
+        if (eventSystem.currentSelectedGameObject == null)
         {
-            EventSystem.SetSelectedGameObject(FirstSelectedObject);
+            eventSystem.SetSelectedGameObject(firstSelectedObject);
         }
 
         pressStartBtn.SetActive(true);

@@ -14,7 +14,10 @@ public class ScoreManager : MonoBehaviour
     public int valueToWin;
 
     public GameObject pannelWin;
-    public Text victoryText;
+    public Text TextUI;
+
+    public Text timerUI;
+    public float timer = 10;
 
 
     public bool partieGagnée = false;
@@ -51,8 +54,8 @@ public class ScoreManager : MonoBehaviour
             scoreJ2++;
         }
 
-        scoreTextJ1.text = ("ScoreJ1 " + scoreJ1);
-        scoreTextJ2.text = ("ScoreJ2 " + scoreJ2);
+        scoreTextJ1.text = ("ScoreJ1 " + scoreJ1 + " / " + valueToWin);
+        scoreTextJ2.text = ("ScoreJ2 " + scoreJ2 + " / " + valueToWin);
 
         CheckWinCondition();
     }
@@ -62,13 +65,13 @@ public class ScoreManager : MonoBehaviour
         if (scoreJ1 >= valueToWin)
         {
             pannelWin.SetActive(true);
-            victoryText.text = "Le joueur 1 a gagné la partie !"; 
+            TextUI.text = "Le joueur 1 a gagné la partie !"; 
         }
 
         if (scoreJ2 >= valueToWin)
         {
             pannelWin.SetActive(true);
-            victoryText.text = "Le joueur 2 a gagné la partie !";
+            TextUI.text = "Le joueur 2 a gagné la partie !";
         }
     }
 

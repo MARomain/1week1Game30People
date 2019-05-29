@@ -32,7 +32,7 @@ public class SelectPlayerManager : MonoBehaviour
             SceneManager.LoadScene("Scene_Vincent"); // A CHANGER !!
         }
 
-        if (Input.GetButtonDown("Fire1") && sceneIndex == 2)
+        if (Input.GetButtonDown("Fire1") && sceneIndex != 2)
         {
             AnotherPlayerJoined();
         }
