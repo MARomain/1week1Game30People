@@ -14,19 +14,36 @@ public class MainMenu : MonoBehaviour
     public GameObject panel1Player;
     public GameObject panel2Players;
 
-
+    public float timerCredit = 30f;
 
 
     void Start()
     {
         //audioSource.PlayOneShot(music, 1f);
 
-        if (eventSystem.currentSelectedGameObject == null)
-        {
-            eventSystem.SetSelectedGameObject(firstSelectedObject);
-        }
 
         pressStartBtn.SetActive(true);
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Start"))
+        {
+            PressStart();
+        }
+
+        if (Input.GetButtonDown("Credits"))
+        {
+            SceneManager.LoadScene("Credits");
+        }
+
+        //Comme dans les jeux de naguère, les crédits apparaissent si on ne fait rien sur l'écran titre
+        timerCredit -= Time.deltaTime;
+
+        if (timerCredit <= 0)
+        {
+            SceneManager.LoadScene("Credits");
+        }
     }
 
     public void PressStart()
