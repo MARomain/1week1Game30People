@@ -12,6 +12,10 @@ public class MainMenu : MonoBehaviour
     public GameObject FirstSelectedObject;
     public EventSystem EventSystem;
 
+    public GameObject pressStartBtn;
+    public GameObject playerButtons;
+
+
 
     void Start()
     {
@@ -21,17 +25,33 @@ public class MainMenu : MonoBehaviour
         {
             EventSystem.SetSelectedGameObject(FirstSelectedObject);
         }
+
+        pressStartBtn.SetActive(true);
+        playerButtons.SetActive(false);
     }
 
-    public void PlayGame()
+    public void PressStart()
     {
         //audioSource.PlayOneShot(soundSelection, 1f);
-        SceneManager.LoadScene("Scene_Vincent"); //***** A changer *****//
+        pressStartBtn.SetActive(false);
+        playerButtons.SetActive(true);
     }
 
-    public void QuitGame()
+    public void Select1Player()
     {
         //audioSource.PlayOneShot(soundSelection, 1f);
-        Application.Quit();
+        SceneManager.LoadScene("Select1Player");
+    }
+
+    public void Select2Players()
+    {
+        //audioSource.PlayOneShot(soundSelection, 1f);
+        SceneManager.LoadScene("Select2Players");
+    }
+
+    public void Credits()
+    {
+        //audioSource.PlayOneShot(soundSelection, 1f);
+        SceneManager.LoadScene("Credits");
     }
 }

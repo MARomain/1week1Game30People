@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Pole tech/Scenes/test portage Rasberry.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6120a4842a6548841abb48233ae57292
+  - enabled: 1
+    path: Assets/Scenes/Scene_Vincent.unity
+    guid: 025902abeb5c5fc479d82658fd2e208b
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: da4b6ea563006cc4e89b55d465493845
   m_configObjects: {}
