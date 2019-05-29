@@ -13,7 +13,6 @@ public class MainMenu : MonoBehaviour
     public EventSystem EventSystem;
 
     public GameObject pressStartBtn;
-    public GameObject playerButtons;
 
 
 
@@ -27,14 +26,13 @@ public class MainMenu : MonoBehaviour
         }
 
         pressStartBtn.SetActive(true);
-        playerButtons.SetActive(false);
     }
 
     public void PressStart()
     {
         //audioSource.PlayOneShot(soundSelection, 1f);
         pressStartBtn.SetActive(false);
-        playerButtons.SetActive(true);
+        Select1Player();
     }
 
     public void Select1Player()
