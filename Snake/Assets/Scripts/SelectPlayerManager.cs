@@ -14,6 +14,9 @@ public class SelectPlayerManager : MonoBehaviour
 
     public int sceneIndex;
 
+    public GameObject pannelTransition;
+    public float transitionTime = 1f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,22 +27,29 @@ public class SelectPlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+
         timerUI.text = timer.ToString("F0");
 
         if (timer <= 0)
         {
-            SceneManager.LoadScene("Scene_Vincent"); // A CHANGER !!
+            pannelTransition.SetActive(true);
+            Invoke("Scene_Vincent", transitionTime);
         }
 
         if (Input.GetButtonDown("Fire1") && sceneIndex != 2)
         {
-            AnotherPlayerJoined();
+            pannelTransition.SetActive(true);
+            Invoke("AnotherPlayerJoined", transitionTime);
         }
     }
 
     public void AnotherPlayerJoined()
     {
+        pannelTransition.SetActive(true);
         SceneManager.LoadScene("Select2Players");
     }
 }

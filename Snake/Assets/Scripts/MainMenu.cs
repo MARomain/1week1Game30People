@@ -7,12 +7,12 @@ using UnityEngine.EventSystems;
 public class MainMenu : MonoBehaviour
 {
     private AudioSource audioSource;
-    public GameObject firstSelectedObject;
     public EventSystem eventSystem;
 
     public GameObject pressStartBtn;
-    public GameObject panel1Player;
-    public GameObject panel2Players;
+
+    public GameObject pannelTransition;
+    public float transitionTime = 1f;
 
     public float timerCredit = 30f;
 
@@ -29,20 +29,24 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetButtonDown("Start"))
         {
+            pannelTransition.SetActive(true);
             PressStart();
         }
 
         if (Input.GetButtonDown("Credits"))
         {
-            SceneManager.LoadScene("Credits");
+            pannelTransition.SetActive(true);
+            Invoke("Credits", transitionTime);
         }
 
         //Comme dans les jeux de naguère, les crédits apparaissent si on ne fait rien sur l'écran titre
+        if (timerCredit > 0)
         timerCredit -= Time.deltaTime;
 
         if (timerCredit <= 0)
         {
-            SceneManager.LoadScene("Credits");
+            pannelTransition.SetActive(true);
+            Invoke("Credits", transitionTime);
         }
     }
 
@@ -50,7 +54,7 @@ public class MainMenu : MonoBehaviour
     {
         //audioSource.PlayOneShot(soundSelection, 1f);
         pressStartBtn.SetActive(false);
-        Select1Player();
+        Invoke("Select1Player", transitionTime);
     }
 
     public void Select1Player()

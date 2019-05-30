@@ -29,6 +29,8 @@ public class ScoreManager : MonoBehaviour
 
     public float timer = 10;
 
+    public GameObject pannelTransition;
+    public float transitionTime = 1f;
 
     public bool partieGagnée = false;
 
@@ -72,7 +74,8 @@ public class ScoreManager : MonoBehaviour
 
         if (timer <= 0)
         {
-            SceneManager.LoadScene("MainMenu"); 
+            pannelTransition.SetActive(true);
+            Invoke("ChangeScene", transitionTime);
         }
     }
 
@@ -129,6 +132,12 @@ public class ScoreManager : MonoBehaviour
             textUIP1.text = "PLAYER 1 LOSES !";
 
         }
+    }
+
+    void ChangeScene()
+    {
+
+        SceneManager.LoadScene("MainMenu");
     }
 
 }
