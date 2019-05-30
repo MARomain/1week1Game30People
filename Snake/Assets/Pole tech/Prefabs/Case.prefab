@@ -94,4 +94,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   caseType: 0
-  spriteAndColors: []
+  caseAnim:
+    animName: 
+  isVisible: 1
