@@ -44,15 +44,26 @@ public class Snake : MonoBehaviour
     public List<Direction.Condition> bodyDirections;
 
 
+    [Space(10)]
+    [Header("UIs : ")]
+    [Space(10)]
+
+    public Image dashSlot;
+    public Image invincibilitySlot;
+    public Sprite dashSprite1, dashSprite2, invincibilitySprite1, invincibilitySprite2;
+
+
 
     Vector2 posi;
 
+#if UNITY_EDITOR
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(posi, .1f);
     }
 
+#endif
 
     public void SetupSnake()
     {
@@ -64,7 +75,12 @@ public class Snake : MonoBehaviour
 
 
 
-
+    private void Start()
+    {
+        dashSlot.sprite = dashSprite1;
+        invincibilitySlot.sprite = invincibilitySprite1;
+        cooldownTimer = powerupCooldown;
+    }
 
     #region Mouvement
 
@@ -78,12 +94,20 @@ public class Snake : MonoBehaviour
         }
         else
         {
+
+            dashSlot.sprite = dashSprite1;
+            invincibilitySlot.sprite = invincibilitySprite1;
+
             if (Input.GetButtonDown("Dash" + id))
             {
                 print("Je dashe");
                 isDashing = true;
                 cooldownTimer = 0f;
                 dashTimer = 0f;
+
+
+                dashSlot.sprite = dashSprite2;
+                invincibilitySlot.sprite = invincibilitySprite2;
             }
             if (Input.GetButtonDown("Invincibilité" + id))
             {
@@ -91,6 +115,10 @@ public class Snake : MonoBehaviour
                 isInvincible = true;
                 cooldownTimer = 0f;
                 invincibilityTimer = 0f;
+
+
+                dashSlot.sprite = dashSprite2;
+                invincibilitySlot.sprite = invincibilitySprite2;
             }
             //if (Input.GetButtonDown("Aimant" + id))
             //{
@@ -132,9 +160,8 @@ public class Snake : MonoBehaviour
 
 
 
-
-        if (!isDead)
-       // if (!ScoreManager.instance.partieGagnée)
+        
+        if (!ScoreManager.instance.partieGagnée && !isDead)
         {
             if (isDashing)
             {

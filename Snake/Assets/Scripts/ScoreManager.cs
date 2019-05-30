@@ -94,6 +94,7 @@ public class ScoreManager : MonoBehaviour
         {
             pannelResult1Player.SetActive(true);
             textUISolo.text = "GAME OVER";
+                partieGagnée = true;
         }
     }
 
@@ -128,6 +129,7 @@ public class ScoreManager : MonoBehaviour
             {
                 pannelResult1Player.SetActive(true);
                 textUISolo.text = "YOU WIN !";
+                partieGagnée = true;
             }
         }
 
@@ -140,6 +142,7 @@ public class ScoreManager : MonoBehaviour
                 pannelResult2Players.SetActive(true);
                 textUIP1.text = "PLAYER 1 WINS !";
                 textUIP2.text = "PLAYER 1 LOSES...";
+                partieGagnée = true;
             }
 
         }
@@ -151,6 +154,7 @@ public class ScoreManager : MonoBehaviour
                 pannelResult2Players.SetActive(true);
                 textUIP2.text = "PLAYER 2 WINS !";
                 textUIP1.text = "PLAYER 1 LOSES !";
+                partieGagnée = true;
             }
 
         }
