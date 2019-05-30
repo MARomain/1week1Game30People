@@ -9,6 +9,7 @@ public class Biome : MonoBehaviour
     [Space(10)]
     
     public Case[] biomeCases;   //Les cases qui seront comprises dans ce biome
+    List<Case> géluleCases;   //Toutes les cases de ce biome qui sont censées contenir des gélules
     public Case caseStartJ1, caseStartJ2; //Les cases de départ du joueur dans ce biome
 
 
@@ -20,11 +21,28 @@ public class Biome : MonoBehaviour
     //    }
     //}
 
+        //Penser à remplir biomeCases avec les cases de gélule avant le début d'une partie
+    private void Awake()
+    {
+        géluleCases = new List<Case>();
+
+        for (int i = 0; i < biomeCases.Length; i++)
+        {
+            if (biomeCases[i])
+            {
+                if (biomeCases[i].caseType == Case.CaseType.Gélule)
+                {
+                    géluleCases.Add(biomeCases[i]);
+                }
+            }
+        }
+    }
 
     public void OnEnable()
     {
         for (int i = 0; i < biomeCases.Length; i++)
         {
+            if(biomeCases[i])
             biomeCases[i].gameObject.SetActive(true);
         }
     }
@@ -33,6 +51,7 @@ public class Biome : MonoBehaviour
     {
         for (int i = 0; i < biomeCases.Length; i++)
         {
+            if(biomeCases[i])
             biomeCases[i].gameObject.SetActive(false);
         }
     }
@@ -41,22 +60,19 @@ public class Biome : MonoBehaviour
 
     public void SpawnObjects()
     {
-        bool caseVierge = false;
-        Case caseChoisie = null;
-        for (int i = 0; i < Grid.instance.nbObjetsRamassablesParBiome; i++)
+
+        //print(géluleCases.Count);
+        
+        for (int i = 0; i < géluleCases.Count; i++)
         {
-
-            while (!caseVierge)
+            if (biomeCases[i])
             {
-                caseChoisie = biomeCases[Random.Range(0, biomeCases.Length)];
-                if(caseChoisie.caseType == Case.CaseType.TerrainNavigable)
+                if (géluleCases[i].caseType == Case.CaseType.TerrainNavigable)
                 {
-                    caseVierge = true;
+                    géluleCases[i].caseType = Case.CaseType.Gélule;
+                    géluleCases[i].ChangerCaseConfiguration();
                 }
-
             }
-            caseChoisie.caseType = Case.CaseType.Gélule;
-            caseChoisie.ChangerCaseConfiguration();
 
 
         }

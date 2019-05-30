@@ -34,12 +34,14 @@ public class SnakeManager : MonoBehaviour
         caseStartJ1 = cameraMovement.currentBiome.caseStartJ1;
         caseStartJ2 = cameraMovement.currentBiome.caseStartJ2;
 
-
         snakeJ1.body.Add(caseStartJ1);
         snakeJ1.bodyDirections.Add(Direction.Condition.Up);
 
-        snakeJ1.body.Add(caseStartJ2);
-        snakeJ1.bodyDirections.Add(Direction.Condition.Up);
+        snakeJ2.body.Add(caseStartJ2);
+        snakeJ2.bodyDirections.Add(Direction.Condition.Up);
+
+        caseStartJ1.ChangerCaseConfiguration();
+        caseStartJ2.ChangerCaseConfiguration();
 
         snakeJ1.SetupSnake();
         snakeJ2.SetupSnake();
@@ -47,7 +49,7 @@ public class SnakeManager : MonoBehaviour
 
     }
 
-    
+
 
 
 
@@ -81,6 +83,8 @@ public class SnakeManager : MonoBehaviour
 
         if (caseHasBeenFound)
         {
+            //print(joueur.name);
+
             List<Direction.Condition> configsJoueur = joueur.bodyDirections;
             AnimName[] animsToUse = joueur.id == snakeJ1.id ? animationsJ1 : animationsJ2;
 
@@ -101,11 +105,71 @@ public class SnakeManager : MonoBehaviour
 
 
             }
-            
+
         }
+
 
         Debug.LogError("Erreur : La configuration n'a pas été trouvée.");
         return null;
+
+
+
+    }
+
+    public AnimName GetSnakeHeadConfiguration(Case @case)
+    {
+        bool caseHasBeenFound = false;
+        Snake joueur = null;
+        Direction.Condition orientationDeLaCase = Direction.Condition.Up;
+
+        while (!caseHasBeenFound)
+        {
+            for (int i = 0; i < snakeJ1.body.Count; i++)
+            {
+                if (snakeJ1.body.Contains(@case))
+                {
+                    caseHasBeenFound = true;
+                    orientationDeLaCase = snakeJ1.bodyDirections[0];
+                    joueur = snakeJ1;
+                    break;
+                }
+
+                if (snakeJ2.body.Contains(@case))
+                {
+                    caseHasBeenFound = true;
+                    orientationDeLaCase = snakeJ2.bodyDirections[0];
+                    joueur = snakeJ2;
+                    break;
+                }
+            }
+        }
+
+        if (caseHasBeenFound)
+        {
+            //print(joueur.name);
+            
+            AnimName[] animsToUse = joueur.id == snakeJ1.id ? animationsJ1 : animationsJ2;
+
+            
+                switch (orientationDeLaCase)
+                {
+                    case Direction.Condition.Up:
+                        return animsToUse[4];
+                    case Direction.Condition.Down:
+                        return animsToUse[5];
+                    case Direction.Condition.Left:
+                        return animsToUse[6];
+                    case Direction.Condition.Right:
+                        return animsToUse[7];
+                }
+            
+
+        }
+
+
+        Debug.LogError("Erreur : La configuration n'a pas été trouvée.");
+        return null;
+
 
 
     }

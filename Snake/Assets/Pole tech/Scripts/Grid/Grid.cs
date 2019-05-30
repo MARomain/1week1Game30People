@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public Vector2Int gridSize;
     public int nbObjetsRamassablesParBiome;
-    public AnimName[] animationToPlay;
+    public AnimName[] animsAJouerParTypeDeCase;
 
     [Space(20)]
 
@@ -24,8 +23,14 @@ public class Grid : MonoBehaviour
             Destroy(this);
             return;
         }
-
         instance = this;
+
+        toutesLesCases = FindObjectsOfType<Case>();
+
+        for (int i = 0; i < toutesLesCases.Length; i++)
+        {
+            toutesLesCases[i].pos = toutesLesCases[i].transform.position;
+        }
     }
 
 

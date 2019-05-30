@@ -21,6 +21,7 @@ public class Case : MonoBehaviour
     public CaseType caseType;
 
     [HideInInspector] public AnimName caseAnim;
+    [HideInInspector] public bool isVisible = true;
 
     //private void OnValidate()
     //{
@@ -53,29 +54,26 @@ public class Case : MonoBehaviour
                 break;
 
             case CaseType.Obstacle:
-                a.enabled = true;
+                a.enabled = false;
                 sr.enabled = true;
-
-                caseAnim = Grid.instance.animationToPlay[1];
+                
                 break;
 
             case CaseType.LimiteTerrain:
-                a.enabled = true;
+                a.enabled = false;
                 sr.enabled = true;
-
-                caseAnim = Grid.instance.animationToPlay[3];
+                
                 break;
 
             case CaseType.TerrainNavigable:
                 a.enabled = false;
-                sr.enabled = false;
-                caseAnim = Grid.instance.animationToPlay[0];
+                sr.enabled = true;
                 break;
 
             case CaseType.Gélule:
                 a.enabled = true;
                 sr.enabled = true;
-                caseAnim = Grid.instance.animationToPlay[2];
+                caseAnim = Grid.instance.animsAJouerParTypeDeCase[0];
 
                 break;
 
@@ -88,7 +86,7 @@ public class Case : MonoBehaviour
             case CaseType.SnakeHead:
                 a.enabled = true;
                 sr.enabled = true;
-                caseAnim = SnakeManager.instance.GetSnakeConfiguration(this);
+                caseAnim = SnakeManager.instance.GetSnakeHeadConfiguration(this);
                 break;
 
 
@@ -97,11 +95,20 @@ public class Case : MonoBehaviour
                 break;
         }
 
-        if(!a)
-        a.Play(caseAnim.animName);
+        if (a)
+        {
+            if(a.enabled)
+                a.Play(caseAnim.animName);
+        }
 
     }
 
-
+    private void OnBecameInvisible()
+    {
+        if(caseType == CaseType.SnakeHead)
+        {
+            isVisible = false;
+        }
+    }
 
 }

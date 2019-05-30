@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 839310226871390030}
   - component: {fileID: 839310226871390031}
   - component: {fileID: 576144964}
-  - component: {fileID: -4308512015183610990}
+  - component: {fileID: -5779237833810522402}
   m_Layer: 0
   m_Name: CaseTerrain
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 839310226871390024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.66667, y: 0.66667, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -97,7 +97,8 @@ MonoBehaviour:
   caseType: 3
   caseAnim:
     animName: 
---- !u!61 &-4308512015183610990
+  isVisible: 1
+--- !u!61 &-5779237833810522402
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,5 +122,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.01}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
