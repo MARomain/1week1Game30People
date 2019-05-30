@@ -53,24 +53,32 @@ public class ScoreManager : MonoBehaviour
     {
 
         //Si deux joueurs
-        pannelButtonP2.SetActive(true);
+        if (pannelButtonP2)
+        {
+            pannelButtonP2.SetActive(true);
+        }
 
     }
 
     void Update()
     {
-        if (pannelResult1Player.activeSelf)
+        if (pannelResult1Player)
         {
-            timer -= Time.deltaTime;
-            timerUI1Player.text = "RETURN TO MENU IN " + timer.ToString("F0") + "...";
+            if (pannelResult1Player.activeSelf)
+            {
+                timer -= Time.deltaTime;
+                timerUI1Player.text = "RETURN TO MENU IN " + timer.ToString("F0") + "...";
+            }
         }
 
-        if (pannelResult2Players.activeSelf)
+        if (pannelResult2Players)
         {
-            timer -= Time.deltaTime;
-            timerUI2Players.text = "RETURN TO MENU IN " + timer.ToString("F0") + "...";
+            if (pannelResult2Players.activeSelf)
+            {
+                timer -= Time.deltaTime;
+                timerUI2Players.text = "RETURN TO MENU IN " + timer.ToString("F0") + "...";
+            }
         }
-
 
         if (timer <= 0)
         {
@@ -82,8 +90,11 @@ public class ScoreManager : MonoBehaviour
     public void KillPlayer()
     {
 
+        if (pannelResult1Player)
+        {
             pannelResult1Player.SetActive(true);
             textUISolo.text = "GAME OVER";
+        }
     }
 
     public void AddPoint(int id)
