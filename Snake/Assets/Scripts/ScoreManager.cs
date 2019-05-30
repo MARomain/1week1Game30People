@@ -92,6 +92,7 @@ public class ScoreManager : MonoBehaviour
 
         if (pannelResult1Player)
         {
+            AudioManager.instance.Stop("MusicGame");
             AudioManager.instance.Play("GameOver");
             pannelResult1Player.SetActive(true);
             textUISolo.text = "GAME OVER";

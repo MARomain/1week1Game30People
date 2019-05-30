@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
 
     public int sceneIndex;
 
+    private bool oneTime = true;
+
     // Use this for initialization
     void Awake()
     {
@@ -37,11 +39,31 @@ public class AudioManager : MonoBehaviour
         }
 
         //Pour jouer une musique constante à partir de ce script : Play("Nom de la musique"), à cette ligne même.
-        if ("MainMenu" == SceneManager.GetActiveScene().name || "Credits" == SceneManager.GetActiveScene().name || "Select1Player" == SceneManager.GetActiveScene().name)
+           
+            
+
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+
+        if ("MainMenu" != SceneManager.GetActiveScene().name && "Credits" != SceneManager.GetActiveScene().name && "Select1Player" != SceneManager.GetActiveScene().name && "Select2Players" != SceneManager.GetActiveScene().name && oneTime == false)
         {
-            DontDestroyOnLoad(gameObject);
+            oneTime = true;
+            
+            Stop("MenuMusic");
+
+            
+        }
+
+        if (oneTime == true && "grid test" != SceneManager.GetActiveScene().name)
+        {
+            oneTime = false;
             Play("MenuMusic");
         }
+
 
     }
 
@@ -55,5 +77,27 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.Play();
+    }
+
+    public void PlayOneShot(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Son :" + name + " pas trouvé !");
+            return;
+        }
+    }
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Son :" + name + " pas trouvé !");
+            return;
+        }
+
+        s.source.Stop();
     }
 }
