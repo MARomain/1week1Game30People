@@ -64,7 +64,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (pannelResult1Player)
         {
-            if (pannelResult1Player.activeSelf)
+            if (pannelResult1Player.activeSelf && timer > 0)
             {
                 timer -= Time.deltaTime;
                 timerUI1Player.text = "RETURN TO MENU IN " + timer.ToString("F0") + "...";
@@ -73,14 +73,14 @@ public class ScoreManager : MonoBehaviour
 
         if (pannelResult2Players)
         {
-            if (pannelResult2Players.activeSelf)
+            if (pannelResult2Players.activeSelf && timer > 0)
             {
                 timer -= Time.deltaTime;
                 timerUI2Players.text = "RETURN TO MENU IN " + timer.ToString("F0") + "...";
             }
         }
 
-        if (timer <= 0)
+        if (timer <= 0 || pannelResult2Players.activeSelf && Input.GetButtonDown("Start") || pannelResult1Player.activeSelf && Input.GetButtonDown("Start"))
         {
             pannelTransition.SetActive(true);
             Invoke("ChangeScene", transitionTime);
@@ -92,9 +92,10 @@ public class ScoreManager : MonoBehaviour
 
         if (pannelResult1Player)
         {
+            AudioManager.instance.Play("GameOver");
             pannelResult1Player.SetActive(true);
             textUISolo.text = "GAME OVER";
-                partieGagnée = true;
+            partieGagnée = true;
         }
     }
 
@@ -103,11 +104,13 @@ public class ScoreManager : MonoBehaviour
 
         if (id == 1)
         {
+            AudioManager.instance.Play("PowerUp");
             Debug.Log("Score 1 added");
             scoreJ1++;
         }
         else
         {
+            AudioManager.instance.Play("PowerUp");
             Debug.Log("Score 2 added");
             scoreJ2++;
         }
@@ -127,6 +130,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (pannelResult1Player)
             {
+                AudioManager.instance.Play("Victoire");
                 pannelResult1Player.SetActive(true);
                 textUISolo.text = "YOU WIN !";
                 partieGagnée = true;
@@ -139,6 +143,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (pannelResult2Players)
             {
+                AudioManager.instance.Play("Victoire");
                 pannelResult2Players.SetActive(true);
                 textUIP1.text = "PLAYER 1 WINS !";
                 textUIP2.text = "PLAYER 1 LOSES...";
@@ -151,6 +156,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (pannelResult2Players)
             {
+                AudioManager.instance.Play("Victoire");
                 pannelResult2Players.SetActive(true);
                 textUIP2.text = "PLAYER 2 WINS !";
                 textUIP1.text = "PLAYER 1 LOSES !";

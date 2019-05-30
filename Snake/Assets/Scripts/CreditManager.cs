@@ -18,7 +18,7 @@ public class CreditManager : MonoBehaviour
     {
         timerMenu -= Time.deltaTime;
 
-        if (timerMenu <= 0)
+        if (timerMenu <= 0 || Input.GetButtonDown("Start"))
         {
             SceneManager.LoadScene("MainMenu");
         }

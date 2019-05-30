@@ -20,8 +20,6 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         //audioSource.PlayOneShot(music, 1f);
-
-
         pressStartBtn.SetActive(true);
     }
 
@@ -29,12 +27,14 @@ public class MainMenu : MonoBehaviour
     {
         if (Input.GetButtonDown("Start"))
         {
+            AudioManager.instance.Play("Validation");
             pannelTransition.SetActive(true);
             PressStart();
         }
 
         if (Input.GetButtonDown("Credits"))
         {
+            AudioManager.instance.Play("Validation");
             pannelTransition.SetActive(true);
             Invoke("Credits", transitionTime);
         }

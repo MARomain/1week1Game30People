@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class AudioManager : MonoBehaviour
@@ -9,9 +10,13 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
+    public int sceneIndex;
+
     // Use this for initialization
     void Awake()
     {
+        sceneIndex++;
+
         if (instance == null) // càd s'il n'y a pas déjà d'AudioManager dans la scène
             instance = this; // donc on en obtient un
         else
@@ -20,6 +25,7 @@ public class AudioManager : MonoBehaviour
         }
 
         //Pour que la musique ne se répète pas à chaque changement de scène : DontDestroyOnLoad(gameObject);
+
 
         foreach (Sound s in sounds)
         {
@@ -31,6 +37,12 @@ public class AudioManager : MonoBehaviour
         }
 
         //Pour jouer une musique constante à partir de ce script : Play("Nom de la musique"), à cette ligne même.
+        if ("MainMenu" == SceneManager.GetActiveScene().name || "Credits" == SceneManager.GetActiveScene().name || "Select1Player" == SceneManager.GetActiveScene().name)
+        {
+            DontDestroyOnLoad(gameObject);
+            Play("MenuMusic");
+        }
+
     }
 
     public void Play(string name)

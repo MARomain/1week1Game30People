@@ -36,14 +36,23 @@ public class SelectPlayerManager : MonoBehaviour
 
         if (timer <= 0)
         {
+            AudioManager.instance.Play("Validation");
             pannelTransition.SetActive(true);
-            Invoke("Scene_Vincent", transitionTime);
+            Invoke("ChangeScene", transitionTime);
         }
 
-        if (Input.GetButtonDown("Fire1") && sceneIndex != 2)
+        if (Input.GetButtonDown("Start") && sceneIndex == 2)
         {
+            AudioManager.instance.Play("Validation");
             pannelTransition.SetActive(true);
             Invoke("AnotherPlayerJoined", transitionTime);
+        }
+
+        if (Input.GetButtonDown("Start") && sceneIndex == 3)
+        {
+            AudioManager.instance.Play("Validation");
+            pannelTransition.SetActive(true);
+            Invoke("ChangeScene", transitionTime);
         }
     }
 
@@ -51,5 +60,10 @@ public class SelectPlayerManager : MonoBehaviour
     {
         pannelTransition.SetActive(true);
         SceneManager.LoadScene("Select2Players");
+    }
+
+    void ChangeScene()
+    {
+        SceneManager.LoadScene("test grid");
     }
 }

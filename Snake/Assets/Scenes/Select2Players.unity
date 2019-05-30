@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerUI: {fileID: 551932189}
   timer: 10
-  sceneIndex: 2
+  sceneIndex: 3
   pannelTransition: {fileID: 1415045788}
   transitionTime: 1
 --- !u!4 &590974470
