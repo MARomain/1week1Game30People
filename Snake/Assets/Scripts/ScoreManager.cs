@@ -111,7 +111,9 @@ public class ScoreManager : MonoBehaviour
             scoreJ2++;
         }
 
+        if(scoreTextJ1)
         scoreTextJ1.text = ("ScoreJ1 " + scoreJ1 + " / " + valueToWin);
+        if(scoreTextJ2)
         scoreTextJ2.text = ("ScoreJ2 " + scoreJ2 + " / " + valueToWin);
 
         CheckWinCondition();
@@ -122,25 +124,34 @@ public class ScoreManager : MonoBehaviour
         //Solo
         if (scoreJ1 >= valueToWin)
         {
-            pannelResult1Player.SetActive(true);
-            textUISolo.text = "YOU WIN !";
+            if (pannelResult1Player)
+            {
+                pannelResult1Player.SetActive(true);
+                textUISolo.text = "YOU WIN !";
+            }
         }
 
 
         //Multi
         if (scoreJ1 >= valueToWin)
         {
-            pannelResult2Players.SetActive(true);
-            textUIP1.text = "PLAYER 1 WINS !";
-            textUIP2.text = "PLAYER 1 LOSES...";
+            if (pannelResult2Players)
+            {
+                pannelResult2Players.SetActive(true);
+                textUIP1.text = "PLAYER 1 WINS !";
+                textUIP2.text = "PLAYER 1 LOSES...";
+            }
 
         }
 
         if (scoreJ2 >= valueToWin)
         {
-            pannelResult2Players.SetActive(true);
-            textUIP2.text = "PLAYER 2 WINS !";
-            textUIP1.text = "PLAYER 1 LOSES !";
+            if (pannelResult2Players)
+            {
+                pannelResult2Players.SetActive(true);
+                textUIP2.text = "PLAYER 2 WINS !";
+                textUIP1.text = "PLAYER 1 LOSES !";
+            }
 
         }
     }

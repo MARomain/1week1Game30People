@@ -51,8 +51,11 @@ public class Biome : MonoBehaviour
     {
         for (int i = 0; i < biomeCases.Length; i++)
         {
-            if(biomeCases[i])
-            biomeCases[i].gameObject.SetActive(false);
+            if (biomeCases[i])
+            {
+                if(biomeCases[i].caseType != Case.CaseType.SnakeHead)
+                biomeCases[i].gameObject.SetActive(false);
+            }
         }
     }
 

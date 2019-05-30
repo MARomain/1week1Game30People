@@ -34,7 +34,7 @@ public class Snake : MonoBehaviour
 
     float dashTimer, invincibilityTimer, aimantTimer;
 
-    bool isInvincible = false, isDashing = false, isBeyondCamera = false, aimant = false;
+    bool isDead = false, isInvincible = false, isDashing = false, isBeyondCamera = false, aimant = false;
 
 
     [Space(10)]
@@ -80,12 +80,14 @@ public class Snake : MonoBehaviour
         {
             if (Input.GetButtonDown("Dash" + id))
             {
+                print("Je dashe");
                 isDashing = true;
                 cooldownTimer = 0f;
                 dashTimer = 0f;
             }
             if (Input.GetButtonDown("Invincibilité" + id))
             {
+                print("Je suis invincible"); //Ca fonctionne
                 isInvincible = true;
                 cooldownTimer = 0f;
                 invincibilityTimer = 0f;
@@ -131,7 +133,8 @@ public class Snake : MonoBehaviour
 
 
 
-        if (!ScoreManager.instance.partieGagnée)
+        if (!isDead)
+       // if (!ScoreManager.instance.partieGagnée)
         {
             if (isDashing)
             {
@@ -183,7 +186,8 @@ public class Snake : MonoBehaviour
             inputToUse = vertical;
             useHorizontal = false;
         }
-        
+
+        Direction.Condition nouvelleDirection = Direction.Condition.Up;
 
         if (Mathf.Approximately(inputToUse, 0f))
         {
@@ -194,12 +198,28 @@ public class Snake : MonoBehaviour
             switch (inputToUse)
             {
                 case -1f:
-                    return (useHorizontal) ? Direction.Condition.Left : Direction.Condition.Down;
+                    nouvelleDirection = (useHorizontal) ? Direction.Condition.Left : Direction.Condition.Down;
+                    break;
                 case 1f:
-                    return (useHorizontal) ? Direction.Condition.Right : Direction.Condition.Up;
+                    nouvelleDirection = (useHorizontal) ? Direction.Condition.Right : Direction.Condition.Up;
+                    break;
                 default:
                     return bodyDirections[0];
             }
+        }
+
+        switch (nouvelleDirection)
+        {
+            case Direction.Condition.Up:
+                return (bodyDirections[0] == Direction.Condition.Down) ? bodyDirections[0] : nouvelleDirection;
+            case Direction.Condition.Down:
+                return (bodyDirections[0] == Direction.Condition.Up) ? bodyDirections[0] : nouvelleDirection;
+            case Direction.Condition.Left:
+                return (bodyDirections[0] == Direction.Condition.Right) ? bodyDirections[0] : nouvelleDirection;
+            case Direction.Condition.Right:
+                return (bodyDirections[0] == Direction.Condition.Left) ? bodyDirections[0] : nouvelleDirection;
+            default:
+                return bodyDirections[0];
         }
     }
 
@@ -213,50 +233,56 @@ public class Snake : MonoBehaviour
 
     private void GoToNextCase(Case head, Direction.Condition directionDuMouvement)
     {
+        Case nextCase = GetNextCase(head.pos, directionDuMouvement);
+
         if (GetNextCase(head.pos, directionDuMouvement) != null)
         {
 
-            if ((GetNextCase(head.pos, directionDuMouvement).caseType == Case.CaseType.Obstacle && !isInvincible) ||
-                GetNextCase(head.pos, directionDuMouvement).caseType == Case.CaseType.LimiteTerrain ||
-                (GetNextCase(head.pos, directionDuMouvement).caseType == Case.CaseType.Snake && !isInvincible) ||
-                (GetNextCase(head.pos, directionDuMouvement).caseType == Case.CaseType.SnakeHead && !isInvincible) ||
+            if ((nextCase.caseType == Case.CaseType.Obstacle && !isInvincible) ||
+                nextCase.caseType == Case.CaseType.LimiteTerrain ||
+                (nextCase.caseType == Case.CaseType.Snake && !isInvincible) ||
+                (nextCase.caseType == Case.CaseType.SnakeHead && !isInvincible) ||
                 isBeyondCamera)
             {
-                print("obstacle");
+                print((isBeyondCamera) ? "hors champ" : "obstacle");
+                isDead = true;
                 ScoreManager.instance.KillPlayer();
             }
-            else if (GetNextCase(head.pos, directionDuMouvement).caseType == Case.CaseType.Gélule)
+            else if (nextCase.caseType == Case.CaseType.Gélule)
             {
+
                 AvancerUneCase(directionDuMouvement);
                 AjouterNouvelleCaseAuCorps(bodyDirections[bodyDirections.Count - 1]);
                 ScoreManager.instance.AddPoint(id);
 
+                nextCase.caseType = Case.CaseType.TerrainNavigable;
+                nextCase.ChangerCaseConfiguration();
             }
             else
             {
+                print("j'avance");
                 AvancerUneCase(directionDuMouvement);
             }
         }
         else
         {
-            print("hors champ");
+            print("est dans un chunk désactivé");
+            isDead = true;
             ScoreManager.instance.KillPlayer();
         }
     }
 
     private void AvancerUneCase(Direction.Condition directionDuMouvement)
     {
-        Case dernièreCase = body[body.Count-1];
+        //Case dernièreCase = body[body.Count-1];
         Case nouvelleCase = GetNextCase(body[0].pos, directionDuMouvement);
-        
-        if(nouvelleCase.caseType == Case.CaseType.Gélule)
-        {
-            nouvelleCase.caseType = Case.CaseType.TerrainNavigable;
-            nouvelleCase.ChangerCaseConfiguration();
-        }
 
-        Case casePrécédente = body[0];
+
+        Vector2 casePrécédente = body[0].pos;
         Direction.Condition directionPrécédente = bodyDirections[0];
+
+        Vector2 casePrécédenteAvantTranslation;
+        Direction.Condition directionPrécédenteAvantTranslation;
 
 
         body[0].transform.position = body[0].pos = nouvelleCase.pos;
@@ -266,13 +292,17 @@ public class Snake : MonoBehaviour
 
         for (int i = 1; i < body.Count; i++)
         {
-            body[i].transform.position = body[i].pos = casePrécédente.pos;
+
+            casePrécédenteAvantTranslation = body[i].pos;
+            directionPrécédenteAvantTranslation = bodyDirections[i];
+
+            body[i].transform.position = body[i].pos = casePrécédente;
             //body[i].caseType = Case.CaseType.Snake;
             //body[i].ChangerCaseConfiguration();
             bodyDirections[i] = directionPrécédente;
 
-            //casePrécédente = body[i];
-            //directionPrécédente = bodyDirections[i];
+            casePrécédente = casePrécédenteAvantTranslation;
+            directionPrécédente = directionPrécédenteAvantTranslation;
         }
 
         //dernièreCase.caseType = Case.CaseType.TerrainNavigable;

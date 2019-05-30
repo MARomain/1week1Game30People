@@ -46,7 +46,8 @@ public class SnakeManager : MonoBehaviour
         snakeJ1.SetupSnake();
         snakeJ2.SetupSnake();
 
-
+        cameraMovement.currentBiome.caseStartJ1 = null;
+        cameraMovement.currentBiome.caseStartJ2 = null;
     }
 
 
