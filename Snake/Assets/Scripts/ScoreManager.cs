@@ -89,6 +89,8 @@ public class ScoreManager : MonoBehaviour
 
     public void KillPlayer(int id)
     {
+        AudioManager.instance.Play("HitP" + id);
+        AudioManager.instance.Stop("JeuMusic");
 
         //Solo
         if (id == 1 && PlayerPrefs.GetInt("NbJoueurs") != 2)
