@@ -98,6 +98,7 @@ MonoBehaviour:
   caseAnim:
     animName: 
   isVisible: 1
+  "g\xE9luleSprite": {fileID: 0}
 --- !u!61 &-4308512015183610990
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -122,5 +123,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.01}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

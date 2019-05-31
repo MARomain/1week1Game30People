@@ -87,16 +87,48 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void KillPlayer()
+    public void KillPlayer(int id)
     {
 
-        if (pannelResult1Player)
+        //Solo
+        if (id == 1 && PlayerPrefs.GetInt("NbJoueurs") != 2)
         {
-            AudioManager.instance.Stop("MusicGame");
-            AudioManager.instance.Play("GameOver");
-            pannelResult1Player.SetActive(true);
-            textUISolo.text = "GAME OVER";
-            partieGagnée = true;
+            if (pannelResult1Player)
+            {
+                AudioManager.instance.Stop("MusicGame");
+                AudioManager.instance.Play("GameOver");
+                pannelResult1Player.SetActive(true);
+                textUISolo.text = "GAME OVER";
+                partieGagnée = true;
+            }
+        }
+
+
+        //Multi
+        if (id == 1 && PlayerPrefs.GetInt("NbJoueurs") == 2)
+        {
+            if (pannelResult2Players)
+            {
+                AudioManager.instance.Play("Victoire");
+                pannelResult2Players.SetActive(true);
+                textUIP1.text = "PLAYER 2 WINS !";
+                textUIP2.text = "PLAYER 1 LOSES...";
+                partieGagnée = true;
+            }
+
+        }
+
+        if (id == 2 && PlayerPrefs.GetInt("NbJoueurs") == 2)
+        {
+            if (pannelResult2Players)
+            {
+                AudioManager.instance.Play("Victoire");
+                pannelResult2Players.SetActive(true);
+                textUIP2.text = "PLAYER 1 WINS !";
+                textUIP1.text = "PLAYER 2 LOSES !";
+                partieGagnée = true;
+            }
+
         }
     }
 
@@ -129,7 +161,7 @@ public class ScoreManager : MonoBehaviour
         //Solo
         if (scoreJ1 >= valueToWin)
         {
-            if (pannelResult1Player)
+            if (pannelResult1Player && PlayerPrefs.GetInt("NbJoueurs") != 2)
             {
                 AudioManager.instance.Play("Victoire");
                 pannelResult1Player.SetActive(true);
@@ -142,12 +174,12 @@ public class ScoreManager : MonoBehaviour
         //Multi
         if (scoreJ1 >= valueToWin)
         {
-            if (pannelResult2Players)
+            if (pannelResult2Players && PlayerPrefs.GetInt("NbJoueurs") == 2)
             {
                 AudioManager.instance.Play("Victoire");
                 pannelResult2Players.SetActive(true);
                 textUIP1.text = "PLAYER 1 WINS !";
-                textUIP2.text = "PLAYER 1 LOSES...";
+                textUIP2.text = "PLAYER 2 LOSES...";
                 partieGagnée = true;
             }
 
@@ -155,7 +187,7 @@ public class ScoreManager : MonoBehaviour
 
         if (scoreJ2 >= valueToWin)
         {
-            if (pannelResult2Players)
+            if (pannelResult2Players && PlayerPrefs.GetInt("NbJoueurs") == 2)
             {
                 AudioManager.instance.Play("Victoire");
                 pannelResult2Players.SetActive(true);

@@ -157,8 +157,7 @@ public class Snake : MonoBehaviour
             aimant = false;
         }
 
-
-
+        
 
         
         if (!ScoreManager.instance.partieGagnée && !isDead)
@@ -273,16 +272,18 @@ public class Snake : MonoBehaviour
             {
                 print((isBeyondCamera) ? "hors champ" : "obstacle");
                 isDead = true;
-                ScoreManager.instance.KillPlayer();
+                ScoreManager.instance.KillPlayer(id);
             }
             else if (nextCase.caseType == Case.CaseType.Gélule)
             {
 
-                AvancerUneCase(directionDuMouvement);
+                //AvancerUneCase(directionDuMouvement);
+                AvancerUneCase(bodyDirections[0]);
                 AjouterNouvelleCaseAuCorps(bodyDirections[bodyDirections.Count - 1]);
                 ScoreManager.instance.AddPoint(id);
 
                 nextCase.caseType = Case.CaseType.TerrainNavigable;
+                nextCase.GetComponent<SpriteRenderer>().sprite = null;
                 nextCase.ChangerCaseConfiguration();
             }
             else
@@ -295,7 +296,7 @@ public class Snake : MonoBehaviour
         {
             print("est dans un chunk désactivé");
             isDead = true;
-            ScoreManager.instance.KillPlayer();
+            ScoreManager.instance.KillPlayer(id);
         }
     }
 
@@ -314,8 +315,8 @@ public class Snake : MonoBehaviour
 
         body[0].transform.position = body[0].pos = nouvelleCase.pos;
         //body[0].caseType = Case.CaseType.SnakeHead;
-        //body[0].ChangerCaseConfiguration();
         bodyDirections[0] = directionDuMouvement;
+        body[0].ChangerCaseConfiguration();
 
         for (int i = 1; i < body.Count; i++)
         {
@@ -325,8 +326,8 @@ public class Snake : MonoBehaviour
 
             body[i].transform.position = body[i].pos = casePrécédente;
             //body[i].caseType = Case.CaseType.Snake;
-            //body[i].ChangerCaseConfiguration();
             bodyDirections[i] = directionPrécédente;
+            body[i].ChangerCaseConfiguration();
 
             casePrécédente = casePrécédenteAvantTranslation;
             directionPrécédente = directionPrécédenteAvantTranslation;

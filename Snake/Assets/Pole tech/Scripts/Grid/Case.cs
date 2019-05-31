@@ -23,6 +23,8 @@ public class Case : MonoBehaviour
     [HideInInspector] public AnimName caseAnim;
     [HideInInspector] public bool isVisible = true;
 
+    public Sprite géluleSprite;
+
     //private void OnValidate()
     //{
     //    if (!GetComponent<Animator>())
@@ -73,7 +75,8 @@ public class Case : MonoBehaviour
             case CaseType.Gélule:
                 a.enabled = true;
                 sr.enabled = true;
-                caseAnim = Grid.instance.animsAJouerParTypeDeCase[0];
+
+                sr.sprite = géluleSprite;
 
                 break;
 

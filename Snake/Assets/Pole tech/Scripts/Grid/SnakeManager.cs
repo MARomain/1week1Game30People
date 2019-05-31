@@ -37,14 +37,28 @@ public class SnakeManager : MonoBehaviour
         snakeJ1.body.Add(caseStartJ1);
         snakeJ1.bodyDirections.Add(Direction.Condition.Up);
 
-        snakeJ2.body.Add(caseStartJ2);
-        snakeJ2.bodyDirections.Add(Direction.Condition.Up);
+        if (PlayerPrefs.GetInt("NbJoueurs") == 2)
+        {
+            snakeJ2.body.Add(caseStartJ2);
+            snakeJ2.bodyDirections.Add(Direction.Condition.Up);
+        }
 
         caseStartJ1.ChangerCaseConfiguration();
-        caseStartJ2.ChangerCaseConfiguration();
+
+        if (PlayerPrefs.GetInt("NbJoueurs") == 2)
+            caseStartJ2.ChangerCaseConfiguration();
 
         snakeJ1.SetupSnake();
+
+        if (PlayerPrefs.GetInt("NbJoueurs") == 2)
         snakeJ2.SetupSnake();
+
+        if (PlayerPrefs.GetInt("NbJoueurs") != 2)
+        {
+            Destroy(snakeJ2.gameObject);
+            Destroy(caseStartJ2.gameObject);
+        }
+
 
         cameraMovement.currentBiome.caseStartJ1 = null;
         cameraMovement.currentBiome.caseStartJ2 = null;
@@ -155,13 +169,13 @@ public class SnakeManager : MonoBehaviour
                 switch (orientationDeLaCase)
                 {
                     case Direction.Condition.Up:
-                        return animsToUse[4];
+                        return animsToUse[0];
                     case Direction.Condition.Down:
-                        return animsToUse[5];
+                        return animsToUse[1];
                     case Direction.Condition.Left:
-                        return animsToUse[6];
+                        return animsToUse[2];
                     case Direction.Condition.Right:
-                        return animsToUse[7];
+                        return animsToUse[3];
                 }
             
 

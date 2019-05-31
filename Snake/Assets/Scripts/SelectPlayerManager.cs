@@ -41,14 +41,14 @@ public class SelectPlayerManager : MonoBehaviour
             Invoke("ChangeScene", transitionTime);
         }
 
-        if (Input.GetButtonDown("Start") && sceneIndex == 2)
+        if (Input.GetButtonDown("Start") || Input.GetButtonDown("Start_P2") && sceneIndex == 2)
         {
             AudioManager.instance.Play("Validation");
             pannelTransition.SetActive(true);
             Invoke("AnotherPlayerJoined", transitionTime);
         }
 
-        if (Input.GetButtonDown("Start") && sceneIndex == 3)
+        if (Input.GetButtonDown("Start_P2") && sceneIndex == 3)
         {
             AudioManager.instance.Play("Validation");
             pannelTransition.SetActive(true);
@@ -67,6 +67,6 @@ public class SelectPlayerManager : MonoBehaviour
 
     void ChangeScene()
     {
-        SceneManager.LoadScene("test grid");
+        SceneManager.LoadScene("test grid 1");
     }
 }

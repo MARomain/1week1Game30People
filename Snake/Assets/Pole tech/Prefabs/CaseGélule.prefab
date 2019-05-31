@@ -99,6 +99,7 @@ MonoBehaviour:
   caseAnim:
     animName: 
   isVisible: 1
+  "g\xE9luleSprite": {fileID: 21300000, guid: 5f145fb4effb2b543aeb30d02d2b78de, type: 3}
 --- !u!95 &-7788889584782542400
 Animator:
   serializedVersion: 3
