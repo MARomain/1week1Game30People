@@ -300,21 +300,24 @@ public class Snake : MonoBehaviour
         }
     }
 
+
+
+
+
     private void AvancerUneCase(Direction.Condition directionDuMouvement)
     {
-        //Case dernièreCase = body[body.Count-1];
         Case nouvelleCase = GetNextCase(body[0].pos, directionDuMouvement);
 
 
         Vector2 casePrécédente = body[0].pos;
         Direction.Condition directionPrécédente = bodyDirections[0];
 
+
         Vector2 casePrécédenteAvantTranslation;
         Direction.Condition directionPrécédenteAvantTranslation;
 
 
         body[0].transform.position = body[0].pos = nouvelleCase.pos;
-        //body[0].caseType = Case.CaseType.SnakeHead;
         bodyDirections[0] = directionDuMouvement;
         body[0].ChangerCaseConfiguration();
 
@@ -324,18 +327,17 @@ public class Snake : MonoBehaviour
             casePrécédenteAvantTranslation = body[i].pos;
             directionPrécédenteAvantTranslation = bodyDirections[i];
 
+
             body[i].transform.position = body[i].pos = casePrécédente;
-            //body[i].caseType = Case.CaseType.Snake;
             bodyDirections[i] = directionPrécédente;
             body[i].ChangerCaseConfiguration();
 
             casePrécédente = casePrécédenteAvantTranslation;
             directionPrécédente = directionPrécédenteAvantTranslation;
         }
-
-        //dernièreCase.caseType = Case.CaseType.TerrainNavigable;
-        //dernièreCase.ChangerCaseConfiguration();
     }
+
+
 
 
 

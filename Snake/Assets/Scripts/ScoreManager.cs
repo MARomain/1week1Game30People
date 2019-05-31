@@ -113,8 +113,8 @@ public class ScoreManager : MonoBehaviour
             {
                 AudioManager.instance.Play("Victoire");
                 pannelResult2Players.SetActive(true);
-                textUIP1.text = "PLAYER 2 WINS !";
-                textUIP2.text = "PLAYER 1 LOSES...";
+                textUIP1.text = "PLAYER 1 LOSES...!";
+                textUIP2.text = "PLAYER 2 WINS !";
                 partieGagnée = true;
             }
 
@@ -126,8 +126,8 @@ public class ScoreManager : MonoBehaviour
             {
                 AudioManager.instance.Play("Victoire");
                 pannelResult2Players.SetActive(true);
-                textUIP2.text = "PLAYER 1 WINS !";
-                textUIP1.text = "PLAYER 2 LOSES !";
+                textUIP1.text = "PLAYER 1 WINS !";
+                textUIP2.text = "PLAYER 2 LOSES...";
                 partieGagnée = true;
             }
 
@@ -151,9 +151,9 @@ public class ScoreManager : MonoBehaviour
         }
 
         if(scoreTextJ1)
-        scoreTextJ1.text = ("ScoreJ1 " + scoreJ1 + " / " + valueToWin);
+        scoreTextJ1.text = ("ScoreJ1 : " + scoreJ1 + " / " + valueToWin);
         if(scoreTextJ2)
-        scoreTextJ2.text = ("ScoreJ2 " + scoreJ2 + " / " + valueToWin);
+        scoreTextJ2.text = ("ScoreJ2 : " + scoreJ2 + " / " + valueToWin);
 
         CheckWinCondition();
     }
