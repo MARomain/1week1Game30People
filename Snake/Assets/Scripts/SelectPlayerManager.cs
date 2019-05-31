@@ -17,11 +17,11 @@ public class SelectPlayerManager : MonoBehaviour
     public GameObject pannelTransition;
     public float transitionTime = 1f;
 
-
+        
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -60,6 +60,9 @@ public class SelectPlayerManager : MonoBehaviour
     {
         pannelTransition.SetActive(true);
         SceneManager.LoadScene("Select2Players");
+
+        PlayerPrefs.SetInt("NbJoueurs", 2);
+
     }
 
     void ChangeScene()

@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
     {
         //audioSource.PlayOneShot(music, 1f);
         pressStartBtn.SetActive(true);
+        PlayerPrefs.SetInt("NbJoueurs", 0);
     }
 
     void Update()
