@@ -58,6 +58,11 @@ public class ScoreManager : MonoBehaviour
             pannelButtonP2.SetActive(true);
         }
 
+        if(PlayerPrefs.GetInt("NbJoueurs") != 2)
+        {
+            pannelButtonP2.SetActive(false);
+        }
+
     }
 
     void Update()
