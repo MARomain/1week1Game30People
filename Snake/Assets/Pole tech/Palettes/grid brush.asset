@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: grid brush
   m_EditorClassIdentifier: 
   m_Prefabs:
-  - {fileID: 839310226871390024, guid: 2411a3d438948c94b9cb599fe2a7406f, type: 3}
-  m_PerlinScale: 0.5
+  - {fileID: 8486133383638232582, guid: 01a27d272d0cda34fb7f3ce2147123bd, type: 3}
+  m_PerlinScale: 0.001
   m_Z: 0
